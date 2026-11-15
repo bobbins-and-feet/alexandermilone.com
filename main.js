@@ -1,9 +1,11 @@
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
 // Gyroscope parallax on footer wordmark
 (function () {
   const wordmark = document.querySelector('.footer-wordmark');
-  if (!wordmark) return;
+  const footer = document.querySelector('footer');
+  if (!wordmark || !footer) return;
 
   const MAX_SHIFT = 40; // px
   const SENSITIVITY = 0.6; // degrees-to-px multiplier
@@ -28,10 +30,24 @@ const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     }
   }
 
+  function onOrientation(e) {
+    if (e.gamma !== null && !reducedMotion.matches) applyParallax(e.gamma);
+  }
+
+  // Reduced motion turned on mid-visit: settle the wordmark back in place
+  reducedMotion.addEventListener('change', () => {
+    if (reducedMotion.matches) applyParallax(0);
+  });
+
+  // Only listen while the footer is on screen
   function startListening() {
-    window.addEventListener('deviceorientation', (e) => {
-      if (e.gamma !== null) applyParallax(e.gamma);
-    });
+    new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        window.addEventListener('deviceorientation', onOrientation);
+      } else {
+        window.removeEventListener('deviceorientation', onOrientation);
+      }
+    }).observe(footer);
   }
 
   // iOS 13+ requires permission
@@ -70,6 +86,7 @@ function createScramble(element, { speed = 45, iterations = 10 } = {}) {
 
   return {
     start() {
+      if (reducedMotion.matches) return;
       if (interval) clearInterval(interval);
       count = 0;
       interval = setInterval(tick, speed);
@@ -88,7 +105,25 @@ document.querySelectorAll('td:first-child a').forEach(link => {
   const arrow = document.createElement('span');
   arrow.className = 'arrow';
   arrow.textContent = '↗';
+  arrow.setAttribute('aria-hidden', 'true');
   br.parentNode.insertBefore(arrow, br);
+});
+
+// On phones the rows are display: block (date under title), which makes
+// browsers drop their table semantics. Restore them explicitly.
+document.querySelectorAll('table').forEach(table => {
+  table.querySelectorAll('thead, tbody').forEach(el => el.setAttribute('role', 'rowgroup'));
+  table.querySelectorAll('tr').forEach(el => el.setAttribute('role', 'row'));
+  table.querySelectorAll('th').forEach(el => el.setAttribute('role', 'columnheader'));
+  table.querySelectorAll('td').forEach(el => el.setAttribute('role', 'cell'));
+});
+
+// Tell screen reader users which links open a new tab
+document.querySelectorAll('a[target="_blank"]').forEach(link => {
+  const note = document.createElement('span');
+  note.className = 'sr-only';
+  note.textContent = ' (opens in a new tab)';
+  link.append(note);
 });
 
 document.querySelectorAll('table tr').forEach(row => {
