@@ -1,0 +1,25 @@
+<!doctype html>
+<!-- Source for /og-image-2.png, the social preview card. Render at exactly
+     1200x630, device scale factor 1, after document.fonts.ready, and save as
+     PNG. Rules it follows (from the social-preview skill): every word at least
+     40px so it reads in a phone feed, and everything inside the centre 630px
+     square so chat apps' square thumbnails keep it. Use a new filename when it
+     changes: platforms cache the old image by URL. -->
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: "Space Mono"; src: url("../fonts/space-mono-400.woff2") format("woff2"); }
+  html, body { margin: 0; }
+  .card {
+    width: 1200px; height: 630px; box-sizing: border-box;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: #72614e; color: #ece7db;
+    font-family: "Space Mono", monospace; text-transform: uppercase; text-align: center;
+  }
+  .line { font-size: 40px; letter-spacing: 0.08em; margin: 0; }
+  .name { font-size: 104px; line-height: 1; letter-spacing: -0.02em; margin: 44px 0; }
+</style>
+<div class="card">
+  <p class="line">Transit advocacy</p>
+  <p class="name">Alexander<br>Milone</p>
+  <p class="line">Philadelphia</p>
+</div>
