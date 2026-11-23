@@ -152,12 +152,6 @@ table {
     margin-left: -45px;
   }
 
-  /* h2:nth-of-type(5):has(+ p) {
-    margin-top: 7rem;
-    float: left;
-    width: 100%;
-  } */
-
   h2 + table {
     width: calc(75% + 90px);
     margin-right: -90px;
