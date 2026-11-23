@@ -45,6 +45,13 @@ body {
   line-height: 1.35;
 }
 
+/* About 68 characters a line. The 600px column ran 81–91 once body text
+   went from 13.6px to 15px */
+.home > p {
+  max-width: 32em;
+  text-wrap: pretty; /* no single word stranded on the bio's last line */
+}
+
 main {
   position: relative;
   z-index: 1;
