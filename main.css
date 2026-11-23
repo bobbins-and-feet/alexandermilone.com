@@ -172,8 +172,12 @@ tr {
   transition: border-color 0.2s ease;
 }
 
-tr:hover {
-  border-bottom: 1px solid var(--secondary);
+/* Hover effects only where there's a pointer that hovers: on touchscreens a
+   tap would leave the row stuck in its hover state */
+@media (hover: hover) {
+  tr:hover {
+    border-bottom: 1px solid var(--secondary);
+  }
 }
 
 td a::after {
@@ -208,13 +212,15 @@ td a em {
   to { transform: translate(4px, -4px); }
 }
 
-tr:hover .arrow {
-  opacity: 1;
-  animation: arrow-nudge 0.15s ease-out forwards;
+@media (hover: hover) {
+  tr:hover .arrow {
+    opacity: 1;
+    animation: arrow-nudge 0.15s ease-out forwards;
+  }
 }
 
 /* Reduced motion: keep the arrow's fade, drop the nudge */
-@media (prefers-reduced-motion: reduce) {
+@media (hover: hover) and (prefers-reduced-motion: reduce) {
   tr:hover .arrow {
     animation: none;
   }

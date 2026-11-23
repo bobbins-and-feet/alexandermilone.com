@@ -133,7 +133,11 @@ document.querySelectorAll('a[target="_blank"]').forEach(link => {
   link.append(note);
 });
 
-document.querySelectorAll('table tr').forEach(row => {
+// Scramble dates on hover only where there's a pointer that hovers: a tap on
+// a touchscreen fires mouseenter too
+const canHover = matchMedia('(hover: hover)').matches;
+
+if (canHover) document.querySelectorAll('table tr').forEach(row => {
   const dateCell = row.querySelector('td:last-child');
   if (!dateCell) return;
   const effect = createScramble(dateCell, { speed: 80, iterations: 7 });
