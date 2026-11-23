@@ -103,7 +103,9 @@ footer {
    instead of running off the left edge, and give the footer room for it */
 @media (max-width: 599px) {
   footer {
-    min-height: calc(300px + 6rem + 3.9vw);
+    /* room for up to three rows of links above the wordmark (320px wraps
+       "Testimonies & Commentary" onto its own row) */
+    min-height: calc(300px + 7.5rem + 3.9vw);
   }
 
   .footer-links {
