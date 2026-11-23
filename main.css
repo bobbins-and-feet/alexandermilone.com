@@ -101,7 +101,8 @@ footer {
   text-underline-offset: 3px;
 }
 
-div h2:not(:first-of-type) {
+/* Every h2 starts a section (the tagline is a <p> in the <hgroup>) */
+.home h2 {
   margin-top: 7rem;
 }
 
@@ -112,7 +113,8 @@ a:visited {
 }
 
 h1,
-h2 {
+h2,
+hgroup p {
   font-family: "Space Mono", monospace;
   font-weight: 400;
   font-style: normal;
@@ -122,11 +124,12 @@ h2 {
   margin: 0;
 }
 
-h2 {
+h2,
+hgroup p {
   color: var(--secondary);
 }
 
-h1 + h2 {
+h1 + p {
   margin-top: -0.25em;
 }
 
