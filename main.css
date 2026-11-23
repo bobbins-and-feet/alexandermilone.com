@@ -8,6 +8,7 @@
 }
 
 body {
+  margin: 0; /* the default 8px framed the full-bleed footer */
   background-color: var(--background);
   color: var(--primary);
   font-family: "IBM Plex Sans", sans-serif;
