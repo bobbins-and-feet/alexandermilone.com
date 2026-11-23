@@ -134,7 +134,9 @@ table {
   border-collapse: collapse;
 }
 
-@media (min-width: 600px) {
+/* Two columns from 768px: at 600px they squeezed titles to 308px, narrower
+   than the 493px they get in one column just below */
+@media (min-width: 768px) {
   .home {
     padding: 15em 4em;
   }
@@ -227,9 +229,9 @@ td + td {
   font-size: 0.85rem;
 }
 
-/* On phones a 130px date column squeezed titles to ~80px; put the date
+/* Below 768px a 130px date column squeezed titles to ~80px; put the date
    under the title instead */
-@media (max-width: 599px) {
+@media (max-width: 767px) {
   tr,
   td {
     display: block;
