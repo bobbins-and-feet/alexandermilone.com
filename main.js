@@ -50,6 +50,13 @@ const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
     }).observe(footer);
   }
 
+  // The footer sits under <main> until the page is scrolled to the end, so
+  // the browser thinks a focused footer link is already on screen and
+  // doesn't scroll to it. Reveal the footer when focus enters it.
+  footer.addEventListener('focusin', () => {
+    window.scrollTo({ top: document.documentElement.scrollHeight });
+  });
+
   // iOS 13+ requires permission
   if (typeof DeviceOrientationEvent !== 'undefined' &&
       typeof DeviceOrientationEvent.requestPermission === 'function') {
